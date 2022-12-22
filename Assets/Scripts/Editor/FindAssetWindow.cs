@@ -19,12 +19,12 @@ public class FindAssetWindow : EditorWindow
     private IReadOnlyList<string> ResultList => m_resultList;
     private string ComponentName => m_mode == 0 ? m_checkUsageComponent?.name : m_componentName;
 
-    [MenuItem("CustomEditor/Find Asset From MonoScript")]
+    [MenuItem("CustomEditor/Find Asset For MonoScript")]
     public static void CustomEditorWindow()
     {
         FindAssetWindow window = (FindAssetWindow)GetWindow(typeof(FindAssetWindow));
         window.Show();
-        window.titleContent.text = "Find Asset From MonoScript Window";
+        window.titleContent.text = "Find Asset Window";
     }
 
     private void OnGUI()
@@ -32,11 +32,16 @@ public class FindAssetWindow : EditorWindow
         #region Select Search Option
         GUILayout.BeginHorizontal();
 
+        EditorGUI.BeginDisabledGroup(m_mode == 0);
+
         if(GUILayout.Button(m_modes[0],EditorStyles.miniButtonLeft))
         {
             m_mode = 0;
             ClearScreen();
         }
+
+        EditorGUI.EndDisabledGroup();
+        EditorGUI.BeginDisabledGroup(m_mode == 1);
 
         if(GUILayout.Button(m_modes[1], EditorStyles.miniButtonRight))
         {
@@ -44,6 +49,7 @@ public class FindAssetWindow : EditorWindow
             ClearScreen();
         }
 
+        EditorGUI.EndDisabledGroup();
         GUILayout.EndHorizontal();
 
         GUILayout.Space(10);
