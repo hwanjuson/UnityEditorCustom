@@ -30,27 +30,14 @@ public class FindAssetWindow : EditorWindow
     private void OnGUI()
     {
         #region Select Search Option
-        GUILayout.BeginHorizontal();
+        EditorGUI.BeginChangeCheck();
 
-        EditorGUI.BeginDisabledGroup(m_mode == 0);
+        m_mode = GUILayout.Toolbar(m_mode, m_modes);
 
-        if(GUILayout.Button(m_modes[0],EditorStyles.miniButtonLeft))
+        if(EditorGUI.EndChangeCheck())
         {
-            m_mode = 0;
             ClearScreen();
         }
-
-        EditorGUI.EndDisabledGroup();
-        EditorGUI.BeginDisabledGroup(m_mode == 1);
-
-        if(GUILayout.Button(m_modes[1], EditorStyles.miniButtonRight))
-        {
-            m_mode = 1;
-            ClearScreen();
-        }
-
-        EditorGUI.EndDisabledGroup();
-        GUILayout.EndHorizontal();
 
         GUILayout.Space(10);
         #endregion
